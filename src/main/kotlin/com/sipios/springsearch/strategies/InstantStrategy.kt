@@ -23,6 +23,11 @@ class InstantStrategy : ParsingStrategy {
     }
 
     override fun parse(value: String?, fieldClass: KClass<out Any>): Any? {
-        return Instant.parse(value)
+        val instantInMillis = value?.toLong()
+        return if (instantInMillis != null) {
+            Instant.ofEpochMilli(instantInMillis)
+        } else {
+            null
+        }
     }
 }

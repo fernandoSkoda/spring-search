@@ -2,17 +2,17 @@ package com.sipios.springsearch
 
 import com.fasterxml.jackson.databind.util.StdDateFormat
 import com.sipios.springsearch.anotation.SearchSpec
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.transaction.annotation.Transactional
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.UUID
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [SpringSearchApplication::class])
 @Transactional
@@ -753,7 +753,7 @@ class SpringSearchApplicationTest {
 
         val specification = SpecificationsBuilder<Users>(
             SearchSpec::class.constructors.first().call("", false)
-        ).withSearch("updatedInstantAt>'2020-01-11T09:20:30Z'").build()
+        ).withSearch("updatedInstantAt>1578734410000").build()
         val robotUsers = userRepository.findAll(specification)
         Assertions.assertEquals(1, robotUsers.size)
         Assertions.assertEquals("robot", robotUsers[0].userFirstName)
